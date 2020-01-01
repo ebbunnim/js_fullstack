@@ -11,6 +11,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   created() {
@@ -22,4 +23,6 @@ export default {
     return { movies: [] };
   }
 };
+
+
 </script>
