@@ -1,34 +1,38 @@
 <template>
   <div class="wrap">
     <h1>영화 목록</h1>
-    <ul class="movies">
-      <li v-for="movie in movies" class="item" v-bind:key="movie.id">
-        <img
-          v-bind:src="movie.poster_url"
-          class="poster"
-          width="200px"
-          height="300px"
-        />
-        <router-link :to="{ name: 'show', params: { id: movie.id } }"
-          >더보기</router-link
-        >
-      </li>
-    </ul>
-  </div>
+    <b-nav-form>
+      <b-form-input
+        size="sm"
+        class="mr-sm-2"
+        placeholder="Search"
+        v-model="searchData"
+      ></b-form-input>
+      <!-- <div class="d-flex justify-content-center"> -->
+      <b-button size="sm" class="my-2 my-sm-0" @click="search">Search</b-button>
+      <!-- </div> -->
+    </b-nav-form>
 
-  <!-- <div v-for="movie in movies" class="movie" v-bind:key="movie.id">
-      <img
-        v-bind:src="movie.poster_url"
-        class="poster"
-        width="400px"
-        height="300px"
-      />
-      <div>
-        <router-link :to="{ name: 'show', params: { id: movie.id } }"
-          >더보기</router-link
+    <div>
+      <b-card>
+        <b-list-group-item
+          title="더보기"
+          v-for="movie in movies"
+          class="item"
+          v-bind:key="movie.id"
         >
-      </div>
-    </div> -->
+          <router-link
+            :to="{ name: 'show', params: { id: movie.id } }"
+            tag="img"
+            :src="movie.poster_url"
+            width="200px"
+            height="300px"
+          >
+          </router-link>
+        </b-list-group-item>
+      </b-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -39,7 +43,27 @@ export default {
     });
   },
   data() {
-    return { movies: [] };
+    return {
+      movies: [],
+      searchData: null
+    };
+  },
+  methods: {
+    search() {
+      // console.log(this.movies);
+      this.movies.forEach(movie => {
+        // console.log(movie.id);
+        if (this.searchData === movie.name) {
+          // let result = movies.filter(movie => this.searchData === movie.name);
+          console.log(movie.name);
+          let results = this.movies.filter(result => {
+            // return 써주는것 잊지 말자!
+            return this.searchData === result.name;
+          });
+          console.log(results);
+        }
+      });
+    }
   }
 };
 </script>
@@ -55,10 +79,6 @@ export default {
 }
 
 ul li {
-  display: inline;
-}
-
-br {
   display: inline;
 }
 </style>
