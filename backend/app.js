@@ -27,9 +27,9 @@ app.use("/api/movies", moviesRouter);
 // naver api get data
 const client_id = "Dx6sf0aDtjHZRAslLLLH";
 const client_secret = "gpVbGbtqUN";
-app.get("/search/blog", function(req, res) {
+app.get("/search/movie", function(req, res) {
   const api_url =
-    "https://openapi.naver.com/v1/search/blog?query=" +
+    "https://openapi.naver.com/v1/search/movie?query=" +
     encodeURI(req.query.query);
   const request = require("request");
   const options = {
@@ -38,9 +38,17 @@ app.get("/search/blog", function(req, res) {
       "X-Naver-Client-Id": client_id,
       "X-Naver-Client-Secret": client_secret
     }
+    // qs: {
+    //   display: 10,
+    //   genre: 1,
+    //   start: 1
+    // }
   };
+  console.log("query test");
   request.get(options, function(error, response, body) {
     if (!error && response.statusCode == 200) {
+      console.log("response");
+      console.log(response);
       res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
       res.end(body);
     } else {
@@ -50,9 +58,9 @@ app.get("/search/blog", function(req, res) {
   });
 });
 // app.listen(3000, function() {
-// console.log(
-// "http://127.0.0.1:3000/search/blog?query=검색어 app listening on port 3000!"
-// );
+//   console.log(
+//     "http://127.0.0.1:3000/search/movie?query=검색어 app listening on port 3000!"
+//   );
 // });
 
 // catch 404 and forward to error handler

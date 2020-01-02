@@ -2,7 +2,7 @@
   <div>
     <h1>상세 내용</h1>
     <h1>{{ movie[0].name }}</h1>
-    <img :src="movie[0].poster" class="poster" />
+    <img :src="movie[0].poster_url" class="poster" />
   </div>
 </template>
 <script>

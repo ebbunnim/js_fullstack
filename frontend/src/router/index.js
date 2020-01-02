@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Index from "../views/IndexPage.vue";
 import Show from "../views/ShowPage.vue";
+import Movie from "../views/ShowPage.vue";
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: "/:id",
     name: "show",
     component: Show
+  },
+  {
+    path: "/api/movies/movie",
+    name: "movie",
+    component: Movie
   }
 ];
 
