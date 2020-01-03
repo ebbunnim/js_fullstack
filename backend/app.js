@@ -7,6 +7,7 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var moviesRouter = require("./routes/movies");
+var getDatasRouter = require("./routes/getDatas");
 
 var app = express();
 
@@ -23,8 +24,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/api/movies", moviesRouter);
+// getDatas라는 라우터 파일에서 전달하는 로직을 사용한다.
+app.use("/api/getDatas", getDatasRouter);
 
-// naver api get data
+// naver api get data - 반드시 app.js에서 해야하나?
 const client_id = "Dx6sf0aDtjHZRAslLLLH";
 const client_secret = "gpVbGbtqUN";
 app.get("/search/movie", function(req, res) {
@@ -37,17 +40,15 @@ app.get("/search/movie", function(req, res) {
     headers: {
       "X-Naver-Client-Id": client_id,
       "X-Naver-Client-Secret": client_secret
+    },
+    qs: {
+      display: 9,
+      title: "백두산"
     }
-    // qs: {
-    //   display: 10,
-    //   genre: 1,
-    //   start: 1
-    // }
   };
   console.log("query test");
   request.get(options, function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log("response");
       console.log(response);
       res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
       res.end(body);

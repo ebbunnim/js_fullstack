@@ -2,23 +2,24 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Index from "../views/IndexPage.vue";
 import Show from "../views/ShowPage.vue";
-import Movie from "../views/ShowPage.vue";
+import Movie from "../views/Movie.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/storeMovies",
     name: "index",
     component: Index
   },
   {
-    path: "/:id",
+    path: "/storeMovies/:id",
     name: "show",
     component: Show
   },
   {
-    path: "movies/movie",
+    // 위는 다른 backend - router
+    path: "/getMovies",
     name: "movie",
     component: Movie
   }

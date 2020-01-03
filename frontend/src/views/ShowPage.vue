@@ -2,8 +2,8 @@
   <!-- div 내 class 이렇게 줘서 center 위치할 수 있음 -->
   <div class="d-flex justify-content-center">
     <b-card
-      :title="`${movie[0].name}`"
-      :img-src="`${movie[0].poster_url}`"
+      :title="`${movie.name}`"
+      :img-src="`${movie.poster_url}`"
       img-alt="Image"
       img-top
       tag="article"
@@ -11,10 +11,8 @@
       class="mb-2"
     >
       <b-card-text>
-        <p>
-          관람 연령 : {{ movie[0].rating }} | 감독 : {{ movie[0].director }}
-        </p>
-        {{ movie[0].description }}
+        <p>관람 연령 : {{ movie.rating }} | 감독 : {{ movie.director }}</p>
+        {{ movie.description }}
       </b-card-text>
     </b-card>
   </div>
@@ -25,16 +23,17 @@ export default {
   created: function() {
     /* eslint-disable no-console */
     console.log("showpage");
-    console.log(this.$route);
+    // console.log(this.$route);
     let id = this.$route.params.id;
     this.$http.get(`/api/movies/${id}`).then(response => {
-      this.movie = response.data;
-      console.log(this.movie);
+      // response.data[0]으로 했어야 오류 뜸
+      this.movie = response.data[0];
     });
   },
 
   data() {
-    return { movie: null };
+    // null이라고 하면 안됨. {}으로 지정해야 에러 안뜸
+    return { movie: {} };
   }
 };
 </script>
