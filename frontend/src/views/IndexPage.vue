@@ -4,13 +4,18 @@
     <b-nav-form>
       <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="searchData"></b-form-input>
       <!-- <div class="d-flex justify-content-center"> -->
-      <b-button size="sm" class="my-2 my-sm-0" @click="search">Search</b-button>
+      <!-- <b-button size="sm" class="my-2 my-sm-0" @click="search">Search</b-button> -->
       <!-- </div> -->
     </b-nav-form>
 
     <div>
       <b-card>
-        <b-list-group-item title="더보기" v-for="movie in movies" class="item" v-bind:key="movie.id">
+        <b-list-group-item
+          title="더보기"
+          v-for="movie in filteredMovies"
+          class="item"
+          v-bind:key="movie.id"
+        >
           <router-link
             :to="{ name: 'show', params: { id: movie.id } }"
             tag="img"
@@ -35,24 +40,20 @@ export default {
   data() {
     return {
       movies: [],
-      searchData: null
+      searchData: null,
+      results: []
     };
   },
-  methods: {
-    search() {
-      // console.log(this.movies);
-      this.movies.forEach(movie => {
-        if (this.searchData === movie.name) {
-          // 밑에 로직버리고 this.searchData를 backend/routes/getData.js에 query로 넘겨야 함
-          // login page 구현해서 같은 로직 문제를 해소해보자
-
-          console.log(movie.name);
-          let results = this.movies.filter(result => {
-            return this.searchData === result.name;
-          });
-          console.log(results);
-        }
-      });
+  methods: {},
+  computed: {
+    filteredMovies: function() {
+      if (this.searchData === null) {
+        return this.movies;
+      } else {
+        return this.movies.filter(movie => {
+          return movie.name.match(this.searchData);
+        });
+      }
     }
   }
 };
@@ -70,5 +71,10 @@ export default {
 
 ul li {
   display: inline;
+}
+
+b-nav-form {
+  width: 100px;
+  margin: auto;
 }
 </style>
