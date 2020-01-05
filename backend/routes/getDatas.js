@@ -17,13 +17,13 @@ router.get("/", function(req, res, next) {
       "X-Naver-Client-Secret": client_secret
     },
     qs: {
-      display: 10,
+      display: 100,
       start: 1,
-      query: "킹"
+      query: "김지영"
     }
   };
   request.get(options, function(error, response, body) {
-    // console.log(response);
+    console.log(response);
     if (!error && response.statusCode == 200) {
       res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
       res.end(body);

@@ -5,7 +5,6 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
 var moviesRouter = require("./routes/movies");
 var getDatasRouter = require("./routes/getDatas");
 
@@ -22,7 +21,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // 각 router의 처음 진입 url을 여기서 이렇게 설정한다.
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/api/movies", moviesRouter);
 // getDatas라는 라우터 파일에서 전달하는 로직을 사용한다.
 app.use("/api/getDatas", getDatasRouter);

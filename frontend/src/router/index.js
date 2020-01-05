@@ -3,6 +3,9 @@ import VueRouter from "vue-router";
 import Index from "../views/IndexPage.vue";
 import Show from "../views/ShowPage.vue";
 import Movie from "../views/Movie.vue";
+import Login from "../components/Login.vue";
+import SignUp from "../components/SignUp.vue";
+import Hello from "../components/Hello.vue";
 
 Vue.use(VueRouter);
 
@@ -18,10 +21,25 @@ const routes = [
     component: Show
   },
   {
-    // 위는 다른 backend - router
+    // 위는 다른 backend - router와 연결됨
     path: "/getMovies",
     name: "movie",
     component: Movie
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login
+  },
+  {
+    path: "/signup",
+    name: "SignUp",
+    component: SignUp
+  },
+  {
+    path: "/hello",
+    name: "hello",
+    component: Hello
   }
 ];
 
