@@ -7,6 +7,14 @@
     <br />
     <button @click="login">Login</button>
     <p>
+      or login with Google!
+      <br />
+      <button class="social-button" @click="googleLogin">
+        <img src="../assets/google-logo.png" alt="google Logo" />
+      </button>
+    </p>
+
+    <p>
       계정이 없다면, 여기서
       <router-link to="/signup">회원가입!</router-link>
     </p>
@@ -14,7 +22,7 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import * as firebase from "firebase/app";
 
 export default {
   name: "login",
@@ -26,27 +34,59 @@ export default {
   },
   methods: {
     login() {
-      // hello라는 경로를 가진 페이지로 이동한다.
-      // this.$router.replace("hello");
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
-        .then(
-          function() {
-            alert("로그인 완료");
-          },
-          function(err) {
-            alert("에러 : " + err.message);
-          }
-        );
+        /*eslint-disable no-console*/
+        .then(result => {
+          console.log(result);
+          this.$router.replace("hello");
+        })
+        .catch(err => {
+          alert("에러" + err.message);
+        });
+    },
+    googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(result => {
+          console.log(result);
+          this.$router.replace({
+            name: "hello",
+            params: { userEmail: result.user.providerData[0].email }
+          });
+        })
+        .catch(err => {
+          alert("err : " + err.message);
+        });
     }
   }
 };
 </script>
 
 <style scoped>
+.social-button {
+  width: 75px;
+  background: "white";
+  padding: 10px;
+  border-radius: 100%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0, 2);
+  outline: 0;
+  border: 0;
+}
+
+.social-button:active {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0, 1);
+}
+
+.social-button img {
+  width: 100%;
+}
+
 .login {
-  margin-top: 25%;
+  margin-top: 25px;
 }
 
 input {

@@ -27,7 +27,7 @@ const routes = [
     component: Movie
   },
   {
-    path: "/login",
+    path: "/",
     name: "Login",
     component: Login
   },
