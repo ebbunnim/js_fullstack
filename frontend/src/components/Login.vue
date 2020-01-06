@@ -1,15 +1,15 @@
 <template>
   <div class="login">
-    <h3>login</h3>
+    <h3>Login</h3>
     <input type="text" placeholder="email" v-model="email" />
     <br />
     <input type="password" placeholder="password" v-model="password" />
     <br />
-    <button @click="login">Login</button>
+    <button @click="login({ email, password })">Login</button>
     <p>
       or login with Google!
       <br />
-      <button class="social-button" @click="googleLogin">
+      <button class="social-button" @click="googleLogin({ email, password })">
         <img src="../assets/google-logo.png" alt="google Logo" />
       </button>
     </p>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import * as firebase from "firebase/app";
+import { mapActions } from "vuex";
 
 export default {
   name: "login",
@@ -33,35 +33,7 @@ export default {
     };
   },
   methods: {
-    login() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        /*eslint-disable no-console*/
-        .then(result => {
-          console.log(result);
-          this.$router.replace("hello");
-        })
-        .catch(err => {
-          alert("에러" + err.message);
-        });
-    },
-    googleLogin() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then(result => {
-          console.log(result);
-          this.$router.replace({
-            name: "hello",
-            params: { userEmail: result.user.providerData[0].email }
-          });
-        })
-        .catch(err => {
-          alert("err : " + err.message);
-        });
-    }
+    ...mapActions(["login", "googleLogin"])
   }
 };
 </script>

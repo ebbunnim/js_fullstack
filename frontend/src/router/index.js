@@ -28,12 +28,12 @@ const routes = [
   },
   {
     path: "/",
-    name: "Login",
+    name: "login",
     component: Login
   },
   {
     path: "/signup",
-    name: "SignUp",
+    name: "signup",
     component: SignUp
   },
   {

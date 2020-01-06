@@ -1,20 +1,20 @@
 <template>
-  <div class="sign-up">
-    <h1>회원가입</h1>
+  <div class="signUp">
+    <h3>Sign Up</h3>
     <input type="text" placeholder="email" v-model="email" />
     <br />
     <input type="password" placeholder="password" v-model="password" />
     <br />
-    <button @click="signUp">가입하기</button>
+    <button @click="signUp">signup</button>
     <span>
-      또는
-      <router-link to="/login">로그인</router-link>으로 돌아가기
+      <router-link :to="{ name: 'login' }">Login</router-link>으로 돌아가기
     </span>
   </div>
 </template>
 
 <script>
 import firebase from "firebase";
+import router from "../router/index.js";
 
 export default {
   name: "signUp",
@@ -31,7 +31,8 @@ export default {
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
           function() {
-            alert("회원가입 완료!");
+            // alert("회원가입 완료!");
+            router.push({ name: "login" });
           },
           function(err) {
             alert("에러 : " + err.message);
@@ -44,7 +45,7 @@ export default {
 
 <style scoped>
 .signUp {
-  margin-top: 25%;
+  margin-top: 25px;
 }
 
 input {
