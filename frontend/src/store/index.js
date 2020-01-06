@@ -73,6 +73,20 @@ export default new Vuex.Store({
           alert("err : " + err.message);
         });
     },
+    githubLogin() {
+      const provider = new firebase.auth.GithubAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(result => {
+          console.log(firebase.auth().currentUser);
+          const token = result.credential.accessToken;
+          const user = result.user;
+        })
+        .catch(function(error) {
+          alert("에러 : " + error.message);
+        });
+    },
     logout({ commit }) {
       commit("logout");
       router.replace({ name: "login" });

@@ -7,10 +7,13 @@
     <br />
     <button @click="login({ email, password })">Login</button>
     <p>
-      or login with Google!
+      or login with social network!
       <br />
       <button class="social-button" @click="googleLogin({ email, password })">
         <img src="../assets/google-logo.png" alt="google Logo" />
+      </button>
+      <button class="social-button" @click="githubLogin({ email, password })">
+        <img src="../assets/github-logo2.png" alt="github Logo" />
       </button>
     </p>
 
@@ -33,7 +36,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["login", "googleLogin"])
+    ...mapActions(["login", "googleLogin", "githubLogin"])
   }
 };
 </script>
@@ -54,7 +57,8 @@ export default {
 }
 
 .social-button img {
-  width: 100%;
+  width: 50px;
+  height: 50px;
 }
 
 .login {
