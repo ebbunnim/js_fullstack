@@ -69,12 +69,14 @@ input {
   margin: 10px 0;
   width: 20%;
   padding: 15px;
+  border: 1px solid;
 }
 
 button {
   margin-top: 10px;
   width: 20%;
   cursor: pointer;
+  border: 1px solid;
 }
 
 p {
